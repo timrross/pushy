@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+    require('load-grunt-tasks')(grunt);
+
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -16,6 +18,9 @@ module.exports = function(grunt) {
                 tasks: ['js-task'],
             },
         },
+        clean: [
+            'dist/'
+        ],
         concat: {
             options: {
                 stripBanners: false,
@@ -25,37 +30,60 @@ module.exports = function(grunt) {
                 src: [
                     'src/js/pushy.js'
                 ],
-                dest: 'dist/js/pushy.min.js',
+                dest: 'dist/js/pushy.js',
             },
         },
         uglify: {
             build: {
-                src: 'dist/js/pushy.min.js',
+                src: 'dist/js/pushy.js',
                 dest: 'dist/js/pushy.min.js'
             }
         },
         sass: {
             dist: {
                 options: {
-                    style: 'compact' //output style: nested, compact, compressed, expanded
+                    sourceMap: false,
+                    style: 'expanded' //output style: nested, compact, compressed, expanded
                 },
                 files: {
                     'dist/css/pushy.css': 'src/scss/pushy.scss', // 'destination': 'source'
                 }
             }
+        },
+        postcss: {
+            prefix: {
+                options: {
+                    map: false,
+                    processors: [
+                        require('autoprefixer')({
+                            browsers: 'last 5 versions',
+                            add: true
+                        })
+                    ]
+                },
+                src: 'dist/css/pushy.css',
+                dest: 'dist/css/pushy.css'
+            },
+            nano: {
+                options: {
+                    map: {
+                        inline: false,
+                        dest: 'dist/css/'
+                    },
+                    processors: [
+                        require('cssnano')() // minify the result
+                    ]
+                },
+                src: 'dist/css/pushy.css',
+                dest: 'dist/css/pushy.min.css'
+            }
         }
     });
-
-    // Load grunt plugins
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-concat');
 
     // Default task(s).
     grunt.registerTask('default', ['build', 'watch']);
     grunt.registerTask('js-task', ['concat', 'uglify']);
-    grunt.registerTask('sass-task', ['sass']);
-    grunt.registerTask('build', ['js-task', 'sass-task']);
+    grunt.registerTask('sass-task', ['sass', 'postcss:prefix']);
+    grunt.registerTask('build', ['clean', 'js-task', 'sass', 'postcss']);
 
 };

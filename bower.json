@@ -1,26 +1,33 @@
 {
-    "name": "pushy",
-    "version": "1.0.0",
-    "homepage": "https://github.com/timrross/pushy",
-    "authors": [
-        "christophery <@cmyee>",
-        "Tim Ross <timrrross@gmail.com>"
-    ],
-    "description": "Pushy is a responsive off-canvas navigation menu using CSS transforms & transitions.",
-    "main": ["dist/js/pushy.js", "dist/scss/pushy.scss", "dist/css/pushy.css"],
-    "keywords": [
-        "jquery",
-        "offcanvas",
-        "menu",
-        "responsive"
-    ],
-    "license": "MIT",
-    "private": true,
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ]
+  "name": "pushy",
+  "version": "1.0.0",
+  "homepage": "https://github.com/timrross/pushy",
+  "authors": [
+    "christophery <@cmyee>",
+    "Tim Ross <timrrross@gmail.com>"
+  ],
+  "description": "Pushy is a responsive off-canvas navigation menu using CSS transforms & transitions.",
+  "main": [
+    "dist/js/pushy.js",
+    "dist/scss/pushy.scss",
+    "dist/css/pushy.css"
+  ],
+  "keywords": [
+    "jquery",
+    "offcanvas",
+    "menu",
+    "responsive"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^1.12"
+  }
 }
