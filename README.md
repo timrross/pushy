@@ -6,12 +6,12 @@ Pushy has been implemented on many sites, [check them out!](https://github.com/c
 
 [View Demo](http://www.christopheryee.ca/pushy) | [Sites using Pushy](https://github.com/christophery/pushy#sites-using-pushy)
 
-# Updates
+# Updates v1.1.0
 This is great work by @christopheryee, but I didn't need the submenu javascript included in the lib.
 I also wrapped it in UMD so it can be used with AMD, or commonjs.
 Added jquery as a dependeny, for bower and npm.
 
-I also updated the gruntfile to use PostCSS with Autoprefixer. 
+I also updated the gruntfile to use PostCSS with Autoprefixer.
 
 ##Features
 

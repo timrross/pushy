@@ -1,7 +1,7 @@
 {
     "name": "Pushy",
     "description": "Pushy is a responsive off-canvas navigation menu using CSS transforms & transitions",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/timrross/pushy"
