@@ -33,6 +33,14 @@ module.exports = function(grunt) {
                 dest: 'dist/js/pushy.js',
             },
         },
+        copy: {
+          sass: {
+            expand: true,
+            cwd: 'src/',
+            src: 'scss/**',
+            dest: 'dist/',
+          },
+        },
         uglify: {
             build: {
                 src: 'dist/js/pushy.js',
@@ -83,7 +91,7 @@ module.exports = function(grunt) {
     // Default task(s).
     grunt.registerTask('default', ['build', 'watch']);
     grunt.registerTask('js-task', ['concat', 'uglify']);
-    grunt.registerTask('sass-task', ['sass', 'postcss:prefix']);
+    grunt.registerTask('sass-task', ['copy', 'sass', 'postcss:prefix']);
     grunt.registerTask('build', ['clean', 'js-task', 'sass', 'postcss']);
 
 };
