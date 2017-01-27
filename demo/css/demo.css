@@ -1,0 +1,139 @@
+html, body {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    /* disable webkit tap highlight */
+    overflow-x: hidden;
+	font-family: sans-serif;
+}
+
+
+/* Lists */
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    display: block;
+    color: #b3b3b1;
+    padding: 15px 30px;
+    text-decoration: none;
+    outline: 0;
+}
+
+nav a:hover {
+    color: #FFF;
+}
+
+nav ul:first-child {
+    margin-top: 10px;
+}
+
+
+/* Submenu Appearance */
+
+nav .submenu ul {
+    padding-left: 15px;
+    transition: max-height 0.2s ease-in-out;
+}
+
+
+/* Submenu Icon */
+
+nav .submenu>a {
+    position: relative;
+}
+
+nav .submenu>a::after {
+    content: '';
+    display: block;
+    height: 11px;
+    width: 8px;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    background: url("../img/arrow.svg") no-repeat;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    transition: transform 0.2s;
+}
+
+
+/* Submenu Movement */
+
+.submenu-closed ul {
+    max-height: 0;
+    overflow: hidden;
+}
+
+.submenu-closed a {
+    opacity: 0;
+}
+
+.submenu-open ul {
+    max-height: 1000px;
+}
+
+.submenu-open a {
+    opacity: 1;
+}
+
+
+/* Submenu Icon */
+
+.submenu-open a::after {
+    -webkit-transform: translateY(-50%) rotate(90deg);
+    -ms-transform: translateY(-50%) rotate(90deg);
+    transform: translateY(-50%) rotate(90deg);
+}
+
+
+/* Container */
+
+.content {
+    position: relative;
+    padding: 20px 40px;
+    padding-top: 80px;
+}
+
+
+/* Menu Button */
+
+.menu-btn {
+    width: 100px;
+    padding: 10px;
+    margin-bottom: 30px;
+    background: #000;
+    color: #FFF;
+    text-align: center;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+
+/* Header */
+
+.site-header {
+    position: fixed;
+    background: #000;
+    color: #FFF;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    z-index: 9998;
+}
+
+
+/* Footer */
+
+.site-footer {
+    position: relative;
+    border-top: 1px solid #EEE;
+    color: #999;
+    padding: 10px;
+    font-size: 0.8em;
+    text-align: center;
+}

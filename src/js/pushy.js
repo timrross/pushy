@@ -1,9 +1,29 @@
 /*! Pushy - v1.0.0 - 2016-3-1
 * Pushy is a responsive off-canvas navigation menu using CSS transforms & transitions.
 * https://github.com/christophery/pushy/
-* by Christopher Yee */
+* by Christopher Yee
+*
+* Converted to UMD by Tim Ross
+* Removed submenu functionality
+* Added class name options.
+* 
+**/
 
-(function ($) {
+;(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory(require('jquery'));
+    } else {
+        // Browser globals (root is window)
+        root.returnExports = factory(root.jQuery);
+    }
+}(this, function ($) {
+
 	var pushy = $('.pushy'), //menu css class
 		body = $('body'),
 		container = $('#container'), //container css class
@@ -14,11 +34,8 @@
 		siteOverlay = $('.site-overlay'), //site overlay
 		menuBtn = $('.menu-btn, .pushy-link'), //css classes to toggle the menu
 		menuSpeed = 200, //jQuery fallback menu speed
-		menuWidth = pushy.width() + 'px', //jQuery fallback menu width
-		submenuClass = '.pushy-submenu',
-		submenuOpenClass = 'pushy-submenu-open',
-		submenuClosedClass = 'pushy-submenu-closed',
-		submenu = $(submenuClass);
+		menuWidth = pushy.width() + 'px'; //jQuery fallback menu width
+
 
 	function togglePushy(){
 		//add class to body based on menu position
@@ -29,7 +46,7 @@
 		}
 	}
 
-	function openPushyFallback(){		
+	function openPushyFallback(){
 
 		//animate menu position based on CSS class
 		if( pushy.hasClass(pushyLeft) ){
@@ -65,39 +82,7 @@
 
 	}
 
-	function toggleSubmenu(){
-		//hide submenu by default
-		$(submenuClass).addClass(submenuClosedClass);
 
-		$(submenuClass).on('click', function(){
-	        var selected = $(this);
-
-	        if( selected.hasClass(submenuClosedClass) ) {
-	            //hide opened submenus
-	            $(submenuClass).addClass(submenuClosedClass).removeClass(submenuOpenClass);
-	            //show submenu
-	            selected.removeClass(submenuClosedClass).addClass(submenuOpenClass);
-	        }else{
-	            //hide submenu
-	            selected.addClass(submenuClosedClass).removeClass(submenuOpenClass);
-	        }
-	    });
-	}
-	
-    function toggleSubmenuFallback(){
-    	//hide submenu by default
-    	$(submenuClass).addClass(submenuClosedClass);
-    	
-    	submenu.children('a').on('click', function(event){
-    		event.preventDefault();
-    		$(this).toggleClass(submenuOpenClass)
-    			   .next('.pushy-submenu ul').slideToggle(200)
-    			   .end().parent(submenuClass)
-    			   .siblings(submenuClass).children('a')
-    			   .removeClass(submenuOpenClass)
-    			   .next('.pushy-submenu ul').slideUp(200);
-    	});
-    }
 
 	//checks if 3d transforms are supported removing the modernizr dependency
 	var cssTransforms3d = (function csstransforms3d(){
@@ -130,9 +115,6 @@
 		//make menu visible
 		pushy.css({'visibility': 'visible'});
 
-		//toggle submenu
-		toggleSubmenu();
-
 		//toggle menu
 		menuBtn.on('click', function(){
 			togglePushy();
@@ -153,15 +135,12 @@
 		}
 
 		//make menu visible
-		pushy.css({'visibility': 'visible'}); 
+		pushy.css({'visibility': 'visible'});
 		//fixes IE scrollbar issue
 		container.css({"overflow-x": "hidden"});
 
 		//keep track of menu state (open/close)
 		var opened = false;
-
-		//toggle submenu
-		toggleSubmenuFallback();
 
 		//toggle menu
 		menuBtn.on('click', function(){
@@ -185,4 +164,4 @@
 			}
 		});
 	}
-}(jQuery));
+}));
