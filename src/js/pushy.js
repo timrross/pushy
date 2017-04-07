@@ -37,7 +37,7 @@
         menuBtnFocus = $('.menu-btn'), //css class to focus when menu is closed w/ esc key
         menuLinkFocus = $(pushy.data('focus')), //focus on link when menu is open
         menuSpeed = 200, //jQuery fallback menu speed
-        menuWidth = pushy.width() + 'px', //jQuery fallback menu width
+        menuWidth = pushy.width() + 'px'; //jQuery fallback menu width
 
         //close menu w/ esc key
         $(document).keyup(function(e) {
