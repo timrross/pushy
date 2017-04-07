@@ -8,6 +8,10 @@ html, body {
 
 /* Lists */
 
+nav {
+    background: #191918;
+}
+
 nav ul {
     margin: 0;
     padding: 0;

@@ -10,11 +10,8 @@ $menu_width: 200px !default;
     height: 100%;
     top: 0;
     z-index: 9999;
-    background: #191918;
     overflow: auto;
-    visibility: hidden;
-    -webkit-overflow-scrolling: touch;
-    /* enables momentum scrolling in iOS overflow elements */
+    -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
     &.pushy-left {
         left: 0;
     }
@@ -23,12 +20,17 @@ $menu_width: 200px !default;
         right: 0;
     }
 }
+
+.pushy-content {
+    visibility: hidden;
+}
 /* Menu Movement */
 .pushy-left {
     transform: translate3d( unquote('-' + $menu_width) ,0,0);
 }
 
 .pushy-open-left {
+    #container,
     .push {
         transform: translate3d( $menu_width ,0,0);
     }
@@ -39,6 +41,7 @@ $menu_width: 200px !default;
 }
 
 .pushy-open-right {
+    #container,
     .push {
         transform: translate3d( unquote('-' + $menu_width) ,0,0);
     }
@@ -49,11 +52,20 @@ $menu_width: 200px !default;
     .pushy {
         transform: translate3d(0,0,0);
     }
+
+    .pushy-content {
+        visibility: visible;
+    }
 }
 /* Menu Transitions */
+#container,
 .push,
 .pushy {
     transition: transform 0.2s cubic-bezier(.16, .68, .43, .99);
+}
+
+.pushy-content {
+    transition: visibility 0.2s cubic-bezier(.16, .68, .43, .99);
 }
 /* Site Overlay */
 .site-overlay {

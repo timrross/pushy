@@ -1,9 +1,10 @@
-/*! Pushy - v1.0.0 - 2016-3-1
+/*! Pushy - v1.1.1 - 2016-3-1
  * Pushy is a responsive off-canvas navigation menu using CSS transforms & transitions.
  * https://github.com/christophery/pushy/
  * by Christopher Yee
  *
  * Converted to UMD by Tim Ross
+ * https://github.com/timrross/pushy/
  * Removed submenu functionality
  * Added class name options.
  *
@@ -33,8 +34,32 @@
         pushyOpenRight = 'pushy-open-right', //css class when menu is open (right position)
         siteOverlay = $('.site-overlay'), //site overlay
         menuBtn = $('.menu-btn, .pushy-link'), //css classes to toggle the menu
+        menuBtnFocus = $('.menu-btn'), //css class to focus when menu is closed w/ esc key
+        menuLinkFocus = $(pushy.data('focus')), //focus on link when menu is open
         menuSpeed = 200, //jQuery fallback menu speed
         menuWidth = pushy.width() + 'px'; //jQuery fallback menu width
+
+        //close menu w/ esc key
+        $(document).keyup(function(e) {
+            //check if esc key is pressed
+            if (e.keyCode == 27) {
+
+                //check if menu is open
+                if (body.hasClass(pushyOpenLeft) || body.hasClass(pushyOpenRight)) {
+                    if (cssTransforms3d) {
+                        closePushy(); //close pushy
+                    } else {
+                        closePushyFallback();
+                        opened = false; //set menu state
+                    }
+
+                    //focus on menu button after menu is closed
+                    if (menuBtnFocus) {
+                        menuBtnFocus.focus();
+                    }
+                }
+            }
+        });
 
 
     function togglePushy() {
@@ -44,10 +69,25 @@
         } else {
             body.toggleClass(pushyOpenRight);
         }
+
+        //focus on link in menu after css transition ends
+        if (menuLinkFocus) {
+            pushy.one('transitionend', function() {
+                menuLinkFocus.focus();
+            });
+        }
+
+    }
+
+    function closePushy() {
+        if (pushy.hasClass(pushyLeft)) {
+            body.removeClass(pushyOpenLeft);
+        } else {
+            body.removeClass(pushyOpenRight);
+        }
     }
 
     function openPushyFallback() {
-
         //animate menu position based on CSS class
         if (pushy.hasClass(pushyLeft)) {
             body.addClass(pushyOpenLeft);
@@ -74,10 +114,14 @@
             }, menuSpeed);
         }
 
+        //focus on link in menu
+        if (menuLinkFocus) {
+            menuLinkFocus.focus();
+        }
     }
 
-    function closePushyFallback() {
 
+    function closePushyFallback() {
         //animate menu position based on CSS class
         if (pushy.hasClass(pushyLeft)) {
             body.removeClass(pushyOpenLeft);
@@ -103,7 +147,6 @@
                 right: "0px"
             }, menuSpeed);
         }
-
     }
 
 
@@ -120,26 +163,26 @@
                 'transform': 'transform'
             };
 
-        // Add it to the body to get the computed style
-        document.body.insertBefore(el, null);
+        if (document.body !== null) {
+            // Add it to the body to get the computed style
+            document.body.insertBefore(el, null);
 
-        for (var t in transforms) {
-            if (el.style[t] !== undefined) {
-                el.style[t] = 'translate3d(1px,1px,1px)';
-                supported = window.getComputedStyle(el).getPropertyValue(transforms[t]);
+            for (var t in transforms) {
+                if (el.style[t] !== undefined) {
+                    el.style[t] = 'translate3d(1px,1px,1px)';
+                    supported = window.getComputedStyle(el).getPropertyValue(transforms[t]);
+                }
             }
+
+            document.body.removeChild(el);
+
+            return (supported !== undefined && supported.length > 0 && supported !== "none");
+        } else {
+            return false;
         }
-
-        document.body.removeChild(el);
-
-        return (supported !== undefined && supported.length > 0 && supported !== "none");
     })();
 
     if (cssTransforms3d) {
-        //make menu visible
-        pushy.css({
-            'visibility': 'visible'
-        });
 
         //toggle menu
         menuBtn.on('click', function() {
@@ -164,10 +207,6 @@
             });
         }
 
-        //make menu visible
-        pushy.css({
-            'visibility': 'visible'
-        });
         //fixes IE scrollbar issue
         container.css({
             "overflow-x": "hidden"

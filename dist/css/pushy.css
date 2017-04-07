@@ -9,9 +9,7 @@
   height: 100%;
   top: 0;
   z-index: 9999;
-  background: #191918;
   overflow: auto;
-  visibility: hidden;
   -webkit-overflow-scrolling: touch;
   /* enables momentum scrolling in iOS overflow elements */
 }
@@ -22,12 +20,17 @@
   right: 0;
 }
 
+.pushy-content {
+  visibility: hidden;
+}
+
 /* Menu Movement */
 .pushy-left {
   -webkit-transform: translate3d(-200px, 0, 0);
           transform: translate3d(-200px, 0, 0);
 }
 
+.pushy-open-left #container,
 .pushy-open-left .push {
   -webkit-transform: translate3d(200px, 0, 0);
           transform: translate3d(200px, 0, 0);
@@ -38,6 +41,7 @@
           transform: translate3d(200px, 0, 0);
 }
 
+.pushy-open-right #container,
 .pushy-open-right .push {
   -webkit-transform: translate3d(-200px, 0, 0);
           transform: translate3d(-200px, 0, 0);
@@ -48,13 +52,22 @@
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
+.pushy-open-left .pushy-content,
+.pushy-open-right .pushy-content {
+  visibility: visible;
+}
 
 /* Menu Transitions */
+#container,
 .push,
 .pushy {
   transition: -webkit-transform 0.2s cubic-bezier(0.16, 0.68, 0.43, 0.99);
   transition: transform 0.2s cubic-bezier(0.16, 0.68, 0.43, 0.99);
   transition: transform 0.2s cubic-bezier(0.16, 0.68, 0.43, 0.99), -webkit-transform 0.2s cubic-bezier(0.16, 0.68, 0.43, 0.99);
+}
+
+.pushy-content {
+  transition: visibility 0.2s cubic-bezier(0.16, 0.68, 0.43, 0.99);
 }
 
 /* Site Overlay */
