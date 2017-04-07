@@ -10,9 +10,7 @@ $menu_width: 200px !default;
     height: 100%;
     top: 0;
     z-index: 9999;
-    background: #191918;
     overflow: auto;
-    visibility: hidden;
     -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
     &.pushy-left {
         left: 0;
